@@ -7,11 +7,9 @@ export default function Hero() {
 
     return (
 
-        <section className="flex container w-full max-w-[1400px] lg:justify-end my-10">
+        <section className="flex container w-full max-w-[1400px] justify-center xl:justify-end mt-8  h-fit">
 
-
-
-            {/* <HeroSlider /> */}
+            <HeroSlider />
 
         </section>
 

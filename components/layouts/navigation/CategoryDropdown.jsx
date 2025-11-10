@@ -21,8 +21,7 @@ export default function CategoryDropdown() {
         "Furniture", 
         "Headphones",
         "Leahther Watch",
-        "Sunglasses",
-        "School Bag"
+        "Sunglasses"
     ];
 
     return (
