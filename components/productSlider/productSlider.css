@@ -26,7 +26,8 @@
 
 /* pagination dots */
 .swiper-pagination {
-  bottom: -6px !important;
+  bottom: 0 !important;
+  
 }
 
 .swiper-pagination-bullet {

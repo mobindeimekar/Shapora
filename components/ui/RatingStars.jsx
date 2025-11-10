@@ -1,29 +1,31 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
+import StarFull from '@/public/icons/star-full.svg'
+import Star from '@/public/icons/Star.svg'
+import StarHalf from '@/public/icons/star-half.svg'
 
 
 const RatingStars = ({ rating, max = 5, size = 16 }) => {
-    // تعداد ستاره‌های پر
+
     const fullStars = Math.floor(rating);
-    // آیا نیمه‌ستاره نیاز داریم؟
+
     const hasHalfStar = rating % 1 >= 0.25 && rating % 1 < 0.75;
-    // بقیه ستاره‌ها خالی‌اند
+
     const emptyStars = max - fullStars - (hasHalfStar ? 1 : 0);
 
     return (
-        <div className="flex items-center justify-center gap-[2px] text-yellow-400">
+        <div className="flex items-center gap-[2px] text-yellow-400">
             {Array(fullStars)
                 .fill()
                 .map((_, i) => (
-                    <FaStar key={`full-${i}`} size={size} />
+                    <StarFull key={`full-${i}`} style={{ width: size, height: size }} />
                 ))}
 
-            {hasHalfStar && <FaStarHalfAlt size={size} />}
+            {hasHalfStar && <StarHalf style={{ width: size, height: size }} />}
 
             {Array(emptyStars)
                 .fill()
                 .map((_, i) => (
-                    <FaRegStar key={`empty-${i}`} size={size} />
+                    <Star key={`empty-${i}`} style={{ width: size, height: size }} />
                 ))}
         </div>
     );
