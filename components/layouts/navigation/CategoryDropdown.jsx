@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Menu from "@/public/icons/menu-2.svg";
 import ChevronDown from "@/public/icons/chevron-down.svg";
 import { AnimatePresence , motion} from "framer-motion";
 import { categoryDropdownAnimation } from "@/utils/motionVariants";
 import Link from "next/link";
+import { useIsPc } from "@/hooks/useIsPc";
+
 
 export default function CategoryDropdown() {
-    const [isOpen, setIsOpen] = useState(false);
+    const isPc = useIsPc();
+    const [isOpen, setIsOpen] = useState(isPc && false);
+
+    useEffect(() => {
+        setIsOpen(isPc); // یعنی وقتی بالای 1440 شد → باز باشه، پایین‌تر → بسته
+    }, [isPc]);
 
     const categories = [
         "Electronics",

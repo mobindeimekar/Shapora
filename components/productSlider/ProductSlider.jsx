@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
+import { useId } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,10 +14,13 @@ import Heart from '@/public/icons/heart.svg'
 import Cart from '@/public/icons/shopping-cart.svg'
 import RatingStars from '@/components/ui/RatingStars';
 import { formatUSD } from "@/utils/formatPrice";
+import Discount from "../ui/Discount";
 
 
 
 export default function ProductSlider({ products }) {
+    const id = useId();
+
     return (
         <div className="relative w-full">
             <Swiper
@@ -25,8 +29,8 @@ export default function ProductSlider({ products }) {
                 loop={true}
                 spaceBetween={30}
                 navigation={{
-                    nextEl: ".custom-next",
-                    prevEl: ".custom-prev",
+                    nextEl: `.next-${id}`,
+                    prevEl: `.prev-${id}`,
                 }}
                 pagination={{ clickable: true }}
                 breakpoints={{
@@ -38,8 +42,8 @@ export default function ProductSlider({ products }) {
                 }}
                 className="product-swiper"
             >
-                {products.map((item) => (
-                    <SwiperSlide key={item.id} className="!h-auto mb-7">
+                {products.map((item, index) => (
+                    <SwiperSlide key={`${item.id || "no-id"}-${index}`} className="!h-auto mb-7">
                         <div className="group flex flex-col justify-between h-full p-5 cursor-pointer ">
 
                             {/* 🔹 بخش عکس */}
@@ -48,7 +52,7 @@ export default function ProductSlider({ products }) {
                                     src={item.image}
                                     alt={item.title}
                                     fill
-                                    quality={70}
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                                     className="object-contain transition-opacity duration-500 group-hover:opacity-0"
                                 />
                                 <Image
@@ -60,13 +64,21 @@ export default function ProductSlider({ products }) {
 
                                 {/* 🔹 دکمه‌های شناور سمت راست بالا */}
                                 <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 -translate-y-10 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-2">
-                                    <button className="w-10 h-10 p-2 bg-white border border-neutral-300 rounded-lg hover:bg-primary hover:text-white">
+                                    <button className="w-10 h-10 p-2 bg-white border border-neutral-300 rounded-lg hover:bg-primary hover:text-white hover:border-0 cursor-pointer">
                                         <Heart />
                                     </button>
-                                    <button className="w-10 h-10 p-2 bg-white border border-neutral-300 rounded-lg hover:bg-primary hover:text-white">
+                                    <button className="w-10 h-10 p-2 bg-white border border-neutral-300 rounded-lg hover:bg-primary hover:text-white hover:border-0 cursor-pointer">
                                         <Cart />
                                     </button>
                                 </div>
+
+                                {/* discount percentage */}
+                                {item.offer && (
+                                    <div className="absolute top-3 left-3">
+                                        <Discount price={item.price} offer={item.offer} />
+                                    </div>
+                                )}
+
                             </div>
 
                             {/* 🔹 اطلاعات محصول */}
@@ -102,10 +114,10 @@ export default function ProductSlider({ products }) {
                 ))}
             </Swiper>
 
-            <button className="custom-prev absolute -translate-y-1/2 z-2 cursor-pointer font-light rounded-full flex items-center justify-center">
+            <button className={`prev-${id} top-[-30px] right-[40px] absolute -translate-y-1/2 z-2 cursor-pointer font-light rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300`}>
                 <Chevron className="h-9 w-9 rotate-90 stroke-1" />
             </button>
-            <button className="custom-next absolute -translate-y-1/2 z-2 cursor-pointer font-light rounded-full flex items-center justify-center">
+            <button className={`next-${id} top-[-30px] right-0 absolute -translate-y-1/2 z-2 cursor-pointer font-light rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300`}>
                 <Chevron className="h-9 w-9 rotate-270 stroke-1" />
             </button>
         </div>

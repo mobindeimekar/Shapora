@@ -3,20 +3,9 @@
   position: relative;
 }
 
-/* دکمه‌های navigation */
 .custom-prev,
 .custom-next {
   transition: all 0.3s ease;
-}
-
-.custom-next {
-  top: -30px;
-  right: 0;
-}
-
-.custom-prev {
-  top: -30px;
-  right: 40px;
 }
 
 .custom-prev:hover,
@@ -24,7 +13,6 @@
   transform: scale(1.1);
 }
 
-/* pagination dots */
 .swiper-pagination {
   bottom: 0 !important;
   
@@ -36,5 +24,5 @@
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ef4444 !important; /* قرمز */
+  background-color: #ef4444 !important;
 }
